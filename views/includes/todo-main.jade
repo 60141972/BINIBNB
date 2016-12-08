@@ -1,0 +1,58 @@
+form#form-task.form-inline(class='todos')
+  .form
+    .main
+      input(type='text', id='content', name='content', placeholder='숙소를 저장하세요')
+    .sub
+      .form-group
+
+        select.form-control(name='category')
+          option(value='1인') 1인
+          option(value='2인') 2인
+          option(value='3인', selected) 3인
+          option(value='4인 이상') 4인 이상
+      .form-group
+        select.form-control(name='priority')
+          
+          option(value='3') 평균 이상
+          option(value='2', selected) 평균 
+          option(value='1') 평균 이하
+          
+
+  .actions
+      button#post-task.btn.btn-primary.btn-lg.btn-block(type='button') 저장
+
+ul.tasks
+
+.no-task 
+  .alert.alert-info Task가 없습니다.
+script#task-template(type='text/template').
+  <li class='task <%= doneStr %>' data-id='<%= id %>'>
+    <span class='check'>
+      <i class='fa fa-check fa-lg'></i>
+    </span>
+
+    
+
+    <span class='content'><%=content %></span>
+    <% if (category) { %>
+      <span class='label label-default category'> 
+        <%= category %>
+      </span>
+    <% } %>
+    
+
+
+    <span class='priority p<%= priority %>'>
+      <%= (priority === 3) ? "평균 이상" : ((priority === 1) ? "평균 이하": "평균 ") %>
+    </span>
+   
+
+  
+
+    <a href='#' class='remove'><i class='fa fa-trash-o'></i></a>
+  </li>
+      
+script.
+  $(function() {
+    var todo = new TaskController();    
+  });
